@@ -198,6 +198,8 @@ VALUES
 .print "======"
 .print ""
 
+.width 30 30 30
+
 -- The SQL statement for the movies output
 SELECT
 a.movie, a.year_released, a.mpaa_rating, b.studio
@@ -211,6 +213,7 @@ INNER JOIN studios b on a.studio_id = b.studio_id;
 .print "========"
 .print ""
 
+.width 30 30 30
 
 -- The SQL statement for the cast output
 SELECT
