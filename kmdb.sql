@@ -121,7 +121,18 @@ CREATE TABLE casts (
 
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
--- TODO!
+INSERT INTO movies (
+movie,
+year_released,
+mpaa_rating,
+studio
+)
+VALUES
+('Batman Begins', '2005', 'PG-13', 'Warner Bros.'),
+('The Dark Knight', '2008', 'PG-13', 'Warner Bros.'),
+('The Dark Knight Rises', '2012', 'PG-13', 'Warner Bros.');
+
+
 
 -- Prints a header for the movies output
 .print "Movies"
@@ -129,7 +140,7 @@ CREATE TABLE casts (
 .print ""
 
 -- The SQL statement for the movies output
--- TODO!
+select * from movies;
 
 -- Prints a header for the cast output
 .print ""
