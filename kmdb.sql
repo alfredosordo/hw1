@@ -102,6 +102,7 @@
 -- Drop existing tables, so you'll start fresh each time this script is run.
 DROP TABLE IF EXISTS movies;
 DROP TABLE IF EXISTS casts;
+DROP TABLE IF EXISTS characters;
 
 -- Create new tables, according to your domain model
 CREATE TABLE movies (
@@ -115,6 +116,11 @@ CREATE TABLE movies (
 CREATE TABLE casts (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   movie TEXT,
+  actor TEXT
+);
+
+CREATE TABLE characters (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
   actor TEXT,
   character_played TEXT
 );
@@ -135,25 +141,46 @@ VALUES
 
 INSERT INTO casts (
 movie,
+actor
+)
+VALUES
+('Batman Begins', 'Christian Bale'),
+('Batman Begins', 'Michael Caine'),
+('Batman Begins', 'Liam Neeson'),
+('Batman Begins', 'Katie Holmes'),
+('Batman Begins', 'Gary Oldman'),
+('The Dark Knight', 'Christian Bale'),
+('The Dark Knight', 'Heath Ledger'),
+('The Dark Knight', 'Aaron Eckhart'),
+('The Dark Knight', 'Michael Caine'),
+('The Dark Knight', 'Maggie Gyllenhaal'),
+('The Dark Knight Rises', 'Christian Bale'),
+('The Dark Knight Rises', 'Gary Oldman'),
+('The Dark Knight Rises', 'Tom Hardy'),
+('The Dark Knight Rises', 'Joseph Gordon-Levitt'),
+('The Dark Knight Rises', 'Anne Hathaway');
+
+INSERT INTO characters (
 actor,
 character_played
 )
 VALUES
-('Batman Begins', 'Christian Bale', 'Bruce Wayne'),
-('Batman Begins', 'Michael Caine', 'Alfred'),
-('Batman Begins', 'Liam Neeson', "Ra's Al Ghul"),
-('Batman Begins', 'Katie Holmes', 'Rachel Dawes'),
-('Batman Begins', 'Gary Oldman', 'Commissioner Gordon'),
-('The Dark Knight', 'Christian Bale', 'Bruce Wayne'),
-('The Dark Knight', 'Heath Ledger', 'Joker'),
-('The Dark Knight', 'Aaron Eckhart', 'Harvey Dent'),
-('The Dark Knight', 'Michael Caine', 'Alfred'),
-('The Dark Knight', 'Maggie Gyllenhaal', 'Rachel Dawes'),
-('The Dark Knight Rises', 'Christian Bale', 'Bruce Wayne'),
-('The Dark Knight Rises', 'Gary Oldman', 'Commissioner Gordon'),
-('The Dark Knight Rises', 'Tom Hardy', 'Bane'),
-('The Dark Knight Rises', 'Joseph Gordon-Levitt', 'John Blake'),
-('The Dark Knight Rises', 'Anne Hathaway', 'Selina Kyle');
+('Christian Bale', 'Bruce Wayne'),
+('Michael Caine', 'Alfred'),
+('Liam Neeson', "Ra's Al Ghul"),
+('Katie Holmes', 'Rachel Dawes'),
+('Gary Oldman', 'Commissioner Gordon'),
+('Heath Ledger', 'Joker'),
+('Aaron Eckhart', 'Harvey Dent'),
+('Maggie Gyllenhaal', 'Rachel Dawes'),
+('Tom Hardy', 'Bane'),
+('Joseph Gordon-Levitt', 'John Blake'),
+('Anne Hathaway', 'Selina Kyle');
+
+
+--select * from movies;
+--select * from casts;
+--select * from characters;
 
 
 -- Prints a header for the movies output
@@ -162,7 +189,7 @@ VALUES
 .print ""
 
 -- The SQL statement for the movies output
-select * from movies;
+-- TODO
 
 -- Prints a header for the cast output
 .print ""
@@ -172,4 +199,8 @@ select * from movies;
 
 
 -- The SQL statement for the cast output
-select * from casts;
+SELECT
+a.movie, a.actor, b.character_played
+FROM casts a
+INNER JOIN characters b on a.actor = b.actor
+
