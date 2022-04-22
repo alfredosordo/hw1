@@ -101,6 +101,7 @@
 
 -- Drop existing tables, so you'll start fresh each time this script is run.
 DROP TABLE IF EXISTS movies;
+DROP TABLE IF EXISTS studios;
 DROP TABLE IF EXISTS casts;
 DROP TABLE IF EXISTS characters;
 
@@ -110,7 +111,12 @@ CREATE TABLE movies (
   movie TEXT,
   year_released INTEGER,
   mpaa_rating TEXT,
-  studio TEXT
+  studio_id INTEGER
+);
+
+CREATE TABLE studios (
+    studio_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    studio TEXT
 );
 
 CREATE TABLE casts (
@@ -131,13 +137,22 @@ INSERT INTO movies (
 movie,
 year_released,
 mpaa_rating,
+studio_id
+)
+VALUES
+('Batman Begins', '2005', 'PG-13', '1'),
+('The Dark Knight', '2008', 'PG-13', '1'),
+('The Dark Knight Rises', '2012', 'PG-13', '1');
+
+INSERT INTO studios (
 studio
 )
 VALUES
-('Batman Begins', '2005', 'PG-13', 'Warner Bros.'),
-('The Dark Knight', '2008', 'PG-13', 'Warner Bros.'),
-('The Dark Knight Rises', '2012', 'PG-13', 'Warner Bros.');
-
+('Warner Bros.'),
+('Paramount'),
+('Sony'),
+('Universal'),
+('Disney');
 
 INSERT INTO casts (
 movie,
@@ -178,18 +193,17 @@ VALUES
 ('Anne Hathaway', 'Selina Kyle');
 
 
---select * from movies;
---select * from casts;
---select * from characters;
-
-
 -- Prints a header for the movies output
 .print "Movies"
 .print "======"
 .print ""
 
 -- The SQL statement for the movies output
--- TODO
+SELECT
+a.movie, a.year_released, a.mpaa_rating, b.studio
+FROM movies a
+INNER JOIN studios b on a.studio_id = b.studio_id;
+
 
 -- Prints a header for the cast output
 .print ""
@@ -202,5 +216,5 @@ VALUES
 SELECT
 a.movie, a.actor, b.character_played
 FROM casts a
-INNER JOIN characters b on a.actor = b.actor
+INNER JOIN characters b on a.actor = b.actor;
 
